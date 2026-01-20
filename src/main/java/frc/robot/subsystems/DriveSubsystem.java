@@ -33,6 +33,7 @@ public class DriveSubsystem extends SubsystemBase{
     
     public void stop() {
         motorL.setNeutralMode(NeutralModeValue.Brake);
+        motorL.setControl(new VoltageOut(0).withOutput(0));
         //motorR.setNeutralMode(NeutralModeValue.Brake);
     }
 
