@@ -6,11 +6,10 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.Drive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import com.ctre.phoenix6.controls.VoltageOut;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -54,18 +53,14 @@ public class RobotContainer {
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
-  // Call drive() on the DriveSubsystem when A is pressed once.
-  // This uses a fixed example voltage of 6 volts; adjust as needed.
-    m_driverController.a().onTrue(
-      new InstantCommand(() -> m_driveSubsystem.drive(new VoltageOut(0), 6), m_driveSubsystem));
+  // Drive while the A button is held (6 volts). Replace the supplier to use
+  // controller axes if you want dynamic control.
+  m_driverController.a().onTrue(new Drive(m_driveSubsystem, () -> 6));
 
-    m_driverController.b().onTrue(
-      new InstantCommand(() -> m_driveSubsystem.drive(new VoltageOut(0), 0), m_driveSubsystem));
-
-    m_driverController.x().onTrue(
-      new InstantCommand(() -> m_driveSubsystem.stop(), m_driveSubsystem));
+  m_driverController.b().onTrue(new Drive(m_driveSubsystem, () -> 0));
   }
 
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

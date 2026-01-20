@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase{
     
-    CANBus rio = new CANBus("rio");
+    public CANBus rio = new CANBus("rio");
 
-    private final TalonFX motorL = new TalonFX(0, rio);
+    public final TalonFX motorL = new TalonFX(0, rio);
     //private final TalonFX motorR = new TalonFX(1, rio);
     
 
