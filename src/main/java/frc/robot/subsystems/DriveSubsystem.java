@@ -15,26 +15,27 @@ public class DriveSubsystem extends SubsystemBase{
     
     public CANBus rio = new CANBus("rio");
 
-    public final TalonFX motorL = new TalonFX(0, rio);
-    //private final TalonFX motorR = new TalonFX(1, rio);
+    public final TalonFX motorL = new TalonFX(1, rio);
+    private final TalonFX motorR = new TalonFX(4, rio);
     
 
     public DriveSubsystem() {
         TalonFXConfiguration talonFXConfiguration = new TalonFXConfiguration();
         motorL.getConfigurator().apply(talonFXConfiguration);
-        //motorR.getConfigurator().apply(talonFXConfiguration);
+        motorR.getConfigurator().apply(talonFXConfiguration);
     }
 
     public void drive(VoltageOut voltage, double volts) {
         motorL.setControl(voltage.withOutput(volts));
-        //motorR.setControl(voltage.withOutput(volts));
+        motorR.setControl(voltage.withOutput(volts));
     }
 
     
     public void stop() {
         motorL.setNeutralMode(NeutralModeValue.Brake);
         motorL.setControl(new VoltageOut(0).withOutput(0));
-        //motorR.setNeutralMode(NeutralModeValue.Brake);
+        motorR.setNeutralMode(NeutralModeValue.Brake);
+        motorR.setControl(new VoltageOut(0).withOutput(0));
     }
 
     @Override
