@@ -27,7 +27,7 @@ public class DriveSubsystem extends SubsystemBase{
 
     public void drive(VoltageOut voltage, double volts) {
         motorL.setControl(voltage.withOutput(volts));
-        motorR.setControl(voltage.withOutput(volts));
+        motorR.setControl(voltage.withOutput(-volts));
     }
 
     
