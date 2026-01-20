@@ -56,7 +56,7 @@ public class RobotContainer {
 
   // Call drive() on the DriveSubsystem when A is pressed once.
   // This uses a fixed example voltage of 6 volts; adjust as needed.
-  m_driverController.a().(
+  m_driverController.a().whileTrue(
     new InstantCommand(() -> m_driveSubsystem.drive(new VoltageOut(0), 6), m_driveSubsystem));
   }
 
