@@ -55,7 +55,7 @@ public class RobotContainer {
 
   // Drive while the A button is held (6 volts). Replace the supplier to use
   // controller axes if you want dynamic control.
-  m_driverController.a().onTrue(new Drive(m_driveSubsystem, () -> 6));
+  m_driverController.a().onTrue(new Drive(m_driveSubsystem, () -> 12));
 
   m_driverController.b().onTrue(new Drive(m_driveSubsystem, () -> 0));
   }
