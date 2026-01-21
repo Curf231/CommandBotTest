@@ -5,8 +5,6 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
@@ -15,7 +13,7 @@ public class DriveSubsystem extends SubsystemBase{
     
     public CANBus rio = new CANBus("rio");
 
-    public final TalonFX motorL = new TalonFX(1, rio);
+    private final TalonFX motorL = new TalonFX(1, rio);
     private final TalonFX motorR = new TalonFX(4, rio);
     
 
@@ -37,9 +35,5 @@ public class DriveSubsystem extends SubsystemBase{
         motorR.setNeutralMode(NeutralModeValue.Brake);
         motorR.setControl(new VoltageOut(0).withOutput(0));
     }
-
-    @Override
-    public void periodic() {
-        
-    }
+    
 }
