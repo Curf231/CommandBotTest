@@ -4,6 +4,8 @@ import frc.robot.subsystems.DriveSubsystem;
 
 import com.ctre.phoenix6.controls.VoltageOut;
 
+import edu.wpi.first.units.UnitBuilder;
+import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import java.util.function.DoubleSupplier;
 
@@ -32,9 +34,8 @@ public class Drive extends Command {
         }else{
             driveSubsystem.drive(voltage, LvoltsSupplier.getAsDouble(), RvoltsSupplier.getAsDouble());
         }
-
-        System.out.println("L: " + LvoltsSupplier.getAsDouble() + 
-            "\nr: " + RvoltsSupplier.getAsDouble());
+        //System.out.println("L: " + LvoltsSupplier.getAsDouble() + 
+        //    "\nr: " + RvoltsSupplier.getAsDouble());
     }
 
     @Override

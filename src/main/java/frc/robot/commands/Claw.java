@@ -2,7 +2,6 @@ package frc.robot.commands;
 import frc.robot.subsystems.ClawSubsystem;
 import com.ctre.phoenix6.controls.VoltageOut;
 
-import edu.wpi.first.cscore.VideoListener;
 import edu.wpi.first.wpilibj2.command.Command;
 import java.util.function.DoubleSupplier;
 

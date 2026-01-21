@@ -5,6 +5,8 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+
+import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
@@ -26,6 +28,8 @@ public class DriveSubsystem extends SubsystemBase{
     public void drive(VoltageOut voltage, double lVolts, double rVolts) {
         motorL.setControl(voltage.withOutput(-lVolts));
         motorR.setControl(voltage.withOutput(rVolts));
+        //System.out.println(motorL.getPosition());
+        //System.out.println(motorR.getPosition());
     }
 
     
