@@ -14,18 +14,27 @@ import java.util.function.DoubleSupplier;
  */
 public class Drive extends Command {
     private final DriveSubsystem driveSubsystem;
-    private final DoubleSupplier voltsSupplier;
+    private final DoubleSupplier LvoltsSupplier;
+    private final DoubleSupplier RvoltsSupplier;
     private final VoltageOut voltage = new VoltageOut(0);
 
-    public Drive(DriveSubsystem subsystem, DoubleSupplier voltsSupplier) {
+    public Drive(DriveSubsystem subsystem, DoubleSupplier LvoltsSupplier, DoubleSupplier RvoltsSupplier) {
         this.driveSubsystem = subsystem;
-        this.voltsSupplier = voltsSupplier;
+        this.LvoltsSupplier = LvoltsSupplier;
+        this.RvoltsSupplier = RvoltsSupplier;
         addRequirements(subsystem);
     }
 
     @Override
     public void execute() {
-        driveSubsystem.drive(voltage, voltsSupplier.getAsDouble());
+        if((RvoltsSupplier.getAsDouble() > -0.36 && RvoltsSupplier.getAsDouble() < -0.12)){
+            driveSubsystem.drive(voltage, LvoltsSupplier.getAsDouble(), 0);
+        }else{
+            driveSubsystem.drive(voltage, LvoltsSupplier.getAsDouble(), RvoltsSupplier.getAsDouble());
+        }
+
+        System.out.println("L: " + LvoltsSupplier.getAsDouble() + 
+            "\nr: " + RvoltsSupplier.getAsDouble());
     }
 
     @Override

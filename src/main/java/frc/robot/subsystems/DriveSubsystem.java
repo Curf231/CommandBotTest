@@ -25,9 +25,9 @@ public class DriveSubsystem extends SubsystemBase{
         motorR.getConfigurator().apply(talonFXConfiguration);
     }
 
-    public void drive(VoltageOut voltage, double volts) {
-        motorL.setControl(voltage.withOutput(volts));
-        motorR.setControl(voltage.withOutput(-volts));
+    public void drive(VoltageOut voltage, double lVolts, double rVolts) {
+        motorL.setControl(voltage.withOutput(-lVolts));
+        motorR.setControl(voltage.withOutput(rVolts));
     }
 
     

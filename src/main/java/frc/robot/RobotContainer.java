@@ -45,21 +45,10 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-
-  // Drive while the A button is held (6 volts). Replace the supplier to use
-  // controller axes if you want dynamic control.
-  m_driverController.a().onTrue(new Drive(m_driveSubsystem, () -> 12));
-
-  m_driverController.b().onTrue(new Drive(m_driveSubsystem, () -> 0));
+  new Trigger(() -> (m_driverController.getRawAxis(1) != 0 ) || !(m_driverController.getRawAxis(5) > -0.09 && m_driverController.getRawAxis(5) < -0.03))
+      .whileTrue(new Drive(m_driveSubsystem, () -> m_driverController.getRawAxis(1) * 3, () -> m_driverController.getRawAxis(5) * 3));
   }
-
   
 
   /**
