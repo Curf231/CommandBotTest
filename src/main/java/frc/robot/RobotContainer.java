@@ -9,11 +9,18 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.Drive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.BackdoorSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import java.util.function.DoubleSupplier;
+
+import com.ctre.phoenix6.controls.VoltageOut;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,6 +32,12 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  private final BackdoorSubsystem m_BackdoorSubsystem = new BackdoorSubsystem();
+  private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
+  private final ClawSubsystem clawSubsystem = new ClawSubsystem();
+
+  private Command openBackdoor = m_BackdoorSubsystem.openCommand(m_BackdoorSubsystem.getVoltage(), 0.5);
+  private Command clawCommand = clawSubsystem.clawCommand();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -50,6 +63,21 @@ public class RobotContainer {
       .whileTrue(new Drive(m_driveSubsystem, 
         () -> (m_driverController.getRawAxis(1) * ((2*Math.PI)/9)/Math.PI), 
       () -> m_driverController.getRawAxis(5) * ((2*Math.PI)/9)/Math.PI));
+  
+
+  m_driverController.b().toggleOnTrue(openBackdoor);
+
+  new Trigger(() -> m_driverController.getRightTriggerAxis() > 0 && m_driverController.getRightTriggerAxis() > m_driverController.getLeftTriggerAxis())
+    .whileTrue(
+      m_armSubsystem.armUpCommand(new VoltageOut(0), () -> m_driverController.getRightTriggerAxis() * 12.0)
+    );
+
+  new Trigger(() -> m_driverController.getLeftTriggerAxis() > 0 && m_driverController.getLeftTriggerAxis() > m_driverController.getRightTriggerAxis())
+    .whileTrue(
+      m_armSubsystem.armDownCommand(new VoltageOut(0), () -> m_driverController.getLeftTriggerAxis() * 12.0)
+    );
+
+  m_driverController.a().toggleOnTrue(clawCommand);
   }
   
 
