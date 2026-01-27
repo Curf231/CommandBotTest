@@ -29,8 +29,8 @@ public class Drive extends Command {
         }else{
             driveSubsystem.drive(voltage, LvoltsSupplier.getAsDouble(), RvoltsSupplier.getAsDouble());
         }
-        //System.out.println("L: " + LvoltsSupplier.getAsDouble() + 
-        //    "\nr: " + RvoltsSupplier.getAsDouble());
+        System.out.println("L: " + LvoltsSupplier.getAsDouble() + 
+            "\nr: " + RvoltsSupplier.getAsDouble());
     }
 
     @Override

@@ -56,8 +56,8 @@ public class RobotContainer {
   private void configureBindings() {
   new Trigger(() -> (m_driverController.getRawAxis(1) != 0 ) || !(m_driverController.getRawAxis(5) > -0.09 && m_driverController.getRawAxis(5) < -0.03))
       .whileTrue(new Drive(m_driveSubsystem, 
-        () -> (m_driverController.getRawAxis(1) * ((2*Math.PI)/9)/Math.PI), 
-      () -> m_driverController.getRawAxis(5) * ((2*Math.PI)/9)/Math.PI));
+        () -> (m_driverController.getRawAxis(1) * 5* ((2*Math.PI)/9)/Math.PI), 
+      () -> m_driverController.getRawAxis(5) * 5 * ((2*Math.PI)/9)/Math.PI));
   
 
   m_driverController.b().toggleOnTrue(openBackdoor);
@@ -75,7 +75,7 @@ public class RobotContainer {
   m_driverController.a().toggleOnTrue(clawCommand);
   }
   
-
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
